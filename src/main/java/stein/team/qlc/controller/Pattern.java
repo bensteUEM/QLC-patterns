@@ -101,9 +101,10 @@ public class Pattern {
 
         switch (this.movement) {
             case ALL:
+                name = "";
                 lightsStep = new ArrayList<>();
                 for (LEDLightDRGB light : this.lights) {
-                    name += "x";
+                    name += "|";
                     lightsStep.add(new LEDLightDRGB(light, val2));
                 }
                 result.add(new Scene(-1, name, lightsStep));
@@ -112,10 +113,9 @@ public class Pattern {
                 for (LEDLightDRGB step : this.lights) {
                     name = "";
                     lightsStep = new ArrayList<>();
-
                     for (LEDLightDRGB light : this.lights) {
-                        if (step.equals(light)){
-                            name += "x";
+                        if (step.equals(light)) {
+                            name += "X";
                             lightsStep.add(new LEDLightDRGB(light, val2));
                         } else {
                             name += "-";

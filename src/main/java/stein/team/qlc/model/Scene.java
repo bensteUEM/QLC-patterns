@@ -1,5 +1,7 @@
 package stein.team.qlc.model;
 
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,8 @@ import java.util.List;
  * it may contain additional arguments for default times and other metadata
  */
 public class Scene {
+    private static final Logger log = Logger.getLogger(Scene.class);
+
     public List<LEDLightDRGB> lights;
     Integer fadeIn, fadeOut, duration, id; //TODO did not check datatype
     public String name;
@@ -28,6 +32,19 @@ public class Scene {
         this.fadeOut = 0;
         this.duration = 0;
     }
+
+    /**
+     * Utility used to merge the values and names of two scenes
+     *
+     * @param scene which should be merged into the current one
+     */
+    public void merge(Scene scene) {
+        log.warn("Not implemented");
+
+        this.name += scene.name;
+        this.lights.addAll(scene.lights);
+    }
+
 
     @Override
     public String toString() {

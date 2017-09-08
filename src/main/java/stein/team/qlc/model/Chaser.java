@@ -1,5 +1,10 @@
 package stein.team.qlc.model;
 
+import org.apache.log4j.Logger;
+import stein.team.qlc.controller.Pattern;
+import stein.team.qlc.helper.Helper;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +16,9 @@ public class Chaser {
     Boolean forwardDirection;
     ChaserRunOrder runOrder;
     String name, path;
+
+    private static final Logger log = Logger.getLogger(Chaser.class);
+
 
     /**
      * Minimalistic Constructor for a function with default params
@@ -31,6 +39,39 @@ public class Chaser {
         this.fadeIn = 0;
         this.fadeOut = 0;
         this.duration = 0;
+    }
+
+    /**
+     * This should merge multiple chaser steps into one pattern
+     * if the existing one has a different number of steps the smallest possible repetition is created
+     * e.g. exists only 1 step, adding 3 step, exsting one is copied to exist 3 times and only then merged.
+     * @param morescenes a list of scenes which should be added of NON OVERLAPPING lights, in order
+     */
+    public void merge(List<Scene> morescenes){
+        log.debug("GCD of to be merged scenes is"+Helper.lcm(this.scenes.size(),morescenes.size()) +
+                "with existing "+ this.scenes.size() + " add: " +morescenes.size());
+        if (this.scenes.size() != morescenes.size()){
+            int lcm = Helper.lcm(this.scenes.size(),morescenes.size());
+
+            List<Scene> templist = new ArrayList<>();
+            while (templist.size() < lcm ) {
+                templist.addAll(this.scenes);
+            }
+            this.scenes = templist;
+
+            templist= new ArrayList<>();
+            while (templist.size() < lcm ) {
+                templist.addAll(morescenes);
+            }
+            morescenes = templist;
+        }
+
+        log.info("Now merging scene by scene assuming in order");
+        //TODO sort the lamps before running through
+
+        for (int i=0; i<this.scenes.size();i++){
+            this.scenes.get(i).merge(morescenes.get(i));
+        }
     }
 
     @Override
