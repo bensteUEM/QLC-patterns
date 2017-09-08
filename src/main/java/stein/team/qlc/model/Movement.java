@@ -8,7 +8,10 @@ package stein.team.qlc.model;
  * doing something with all at the same time
  * or doing ping pong (from left to right then right to left ...)
  */
-public enum  Movement {
-        LEFT, RIGHT, RANDOM, ALL, PINGPONG
+public enum Movement {
+    LEFTtoRIGHT, RIGHTtoLEFT, RANDOM, ALL, PINGPONG
+    // LEFTtoRIGHT & RIGHTtoLEFT => QLC Run Order Loop + Backward / Forward
+    // ALL = no chaser - scene only?
+    // PINGPONG => QLC Run Order PingPong
 }
 
