@@ -9,7 +9,8 @@ import java.util.List;
 public class Scene {
     public List<LEDLightDRGB> lights;
     Integer fadeIn, fadeOut, duration, id; //TODO did not check datatype
-    String name, path;
+    public String name;
+    String path;
 
     /**
      * Minimalistic Constructor for a function with default params
@@ -31,11 +32,11 @@ public class Scene {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Function with name " + this.name)
+        result.append("\n\tScene with name " + this.name)
                 .append(" with ID=" + id)
                 .append(" in Path=" + path);
         result.append(" With FadeIn/Out/Duration of " + fadeIn + ";" + fadeOut + ";" + duration);
-        result.append("\n\t" + lights.toString());
+        result.append("\n\t\t" + lights.toString());
         return result.toString();
     }
 

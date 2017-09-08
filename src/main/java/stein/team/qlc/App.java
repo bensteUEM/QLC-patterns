@@ -24,7 +24,7 @@ public class App {
 
         //Generate Pattern and printout debug
         Pattern pat1 = new Pattern(alllights.subList(0, 3));
-        pat1.movement = Movement.ALL;
+        pat1.movement = Movement.LEFTtoRIGHT;
         pat1.name = "TEST Pattern";
         log.debug("Generated: " + pat1);
 

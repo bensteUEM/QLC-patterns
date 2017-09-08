@@ -97,21 +97,33 @@ public class Pattern {
      */
     public List<Scene> iteratePatternHighlight(FixtureValue val1, FixtureValue val2) {
         ArrayList<Scene> result = new ArrayList();
-        ArrayList<LEDLightDRGB> lights = new ArrayList<>();
-        name = "";
-
-        Scene fun1 = new Scene(-1, "TESTING JAVA", lights);
+        ArrayList<LEDLightDRGB> lightsStep = new ArrayList<>();
 
         switch (this.movement) {
             case ALL:
+                lightsStep = new ArrayList<>();
                 for (LEDLightDRGB light : this.lights) {
                     name += "x";
-                    lights.add(new LEDLightDRGB(light, val2));
+                    lightsStep.add(new LEDLightDRGB(light, val2));
                 }
-                result.add(new Scene(-1, name, lights));
+                result.add(new Scene(-1, name, lightsStep));
                 break;
             case LEFTtoRIGHT:
-                log.error(this.movement + " not yet implemented");
+                for (LEDLightDRGB step : this.lights) {
+                    name = "";
+                    lightsStep = new ArrayList<>();
+
+                    for (LEDLightDRGB light : this.lights) {
+                        if (step.equals(light)){
+                            name += "x";
+                            lightsStep.add(new LEDLightDRGB(light, val2));
+                        } else {
+                            name += "-";
+                            lightsStep.add(new LEDLightDRGB(light, val1));
+                        }
+                    }
+                    result.add(new Scene(-1, name, lightsStep));
+                }
                 break;
             case RIGHTtoLEFT:
                 log.error(this.movement + " not yet implemented");

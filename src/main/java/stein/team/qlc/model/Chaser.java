@@ -36,12 +36,12 @@ public class Chaser {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Function with name " + this.name)
+        result.append("Chaser with name " + this.name)
                 .append(" with ID=" + id)
                 .append(" in Path=" + path)
                 .append(" WITH FadeIn/Out/Duration of " + fadeIn + ";" + fadeOut + ";" + duration)
                 .append(" AND RunOrder: " + (this.forwardDirection ? "Forward" : "Backward)"));
-        result.append("\n\t" + scenes.toString());
+        result.append(scenes.toString());
         return result.toString();
     }
 
