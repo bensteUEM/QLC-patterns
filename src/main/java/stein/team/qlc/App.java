@@ -1,5 +1,9 @@
 package stein.team.qlc;
 
+import stein.team.qlc.controller.Pattern;
+
+import java.util.ArrayList;
+
 /**
  * Hello world!
  *
