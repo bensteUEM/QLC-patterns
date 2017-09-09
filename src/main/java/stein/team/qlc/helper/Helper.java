@@ -9,7 +9,7 @@ public class Helper {
      * @param b second number
      * @return greatest common divisor of A and B
      */
-    public static int gcd(int a, int b) {
+    private static int gcd(int a, int b) {
         if (b == 0) return a;
         return gcd(b, a % b);
     }

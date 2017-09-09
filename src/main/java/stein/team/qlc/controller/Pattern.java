@@ -11,18 +11,18 @@ import static stein.team.qlc.model.Movement.LEFTtoRIGHT;
 /**
  * Class which should be used to represent one pattern
  */
+@SuppressWarnings("CanBeFinal")
 public class Pattern {
     private static final Logger log = Logger.getLogger(Pattern.class);
-
-    public String name;
-    public Mode mode;
     public Movement movement;
-    List<LEDLightDRGB> lights;
+    private String name;
+    private Mode mode;
+    private List<LEDLightDRGB> lights;
 
     /**
      * Minimalistic Pattern Constructor
      */
-    public Pattern() {
+    private Pattern() {
         this.lights = new ArrayList<>();
         this.mode = Mode.HIGHLIGHT;
         this.movement = LEFTtoRIGHT;
@@ -46,7 +46,7 @@ public class Pattern {
      * @param mode     of replacement
      * @param movement in which direction
      */
-    public Pattern(List<LEDLightDRGB> list, Mode mode, Movement movement) {
+    private Pattern(List<LEDLightDRGB> list, Mode mode, Movement movement) {
         this.lights = list;
         this.mode = mode;
         this.movement = movement;
@@ -60,7 +60,7 @@ public class Pattern {
      * @param mode selected
      * @return List of FixtureValues with the Values applied
      */
-    public List<Scene> iteratePattern(FixtureValue val1, FixtureValue val2, Mode mode) {
+    private List<Scene> iteratePattern(FixtureValue val1, FixtureValue val2, Mode mode) {
         if (mode == Mode.HIGHLIGHT) {
             return iteratePatternHighlight(val1, val2);
         } else if (mode == Mode.REPLACE) {
@@ -79,11 +79,11 @@ public class Pattern {
     /**
      * Placeholder for iteration with Replace mode
      *
-     * @param val1
-     * @param val2
-     * @return
+     * @param val1 old value
+     * @param val2 new value
+     * @return list of scens for this action
      */
-    public List<Scene> iteratePatternReplace(FixtureValue val1, FixtureValue val2) {
+    private List<Scene> iteratePatternReplace(FixtureValue val1, FixtureValue val2) {
         log.warn("REPLACE not yet implemented"); //TODO implement
         return null;
     }
@@ -95,9 +95,9 @@ public class Pattern {
      * @param val2 highlight status
      * @return list of functions with fixture definitions
      */
-    public List<Scene> iteratePatternHighlight(FixtureValue val1, FixtureValue val2) {
+    private List<Scene> iteratePatternHighlight(FixtureValue val1, FixtureValue val2) {
         ArrayList<Scene> result = new ArrayList();
-        ArrayList<LEDLightDRGB> lightsStep = new ArrayList<>();
+        ArrayList<LEDLightDRGB> lightsStep; //to be initialized in every step
 
         switch (this.movement) {
             case ALL:
@@ -140,12 +140,13 @@ public class Pattern {
 
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder();
-        text.append("Pattern with name: " + this.name);
-        text.append(" contains: " + this.lights.toString());
-        text.append(" is set to move " + this.movement);
-        text.append(" with mode " + this.mode);
+        String text = "Pattern with name: " +
+                this.name + " contains: " +
+                this.lights.toString() +
+                " is set to move " +
+                this.movement +
+                " with mode " + this.mode;
 
-        return text.toString();
+        return text;
     }
 }

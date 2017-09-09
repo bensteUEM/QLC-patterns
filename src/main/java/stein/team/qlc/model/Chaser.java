@@ -11,11 +11,15 @@ import java.util.List;
  */
 public class Chaser {
     private static final Logger log = Logger.getLogger(Chaser.class);
-    public List<Scene> scenes;
-    Integer fadeIn, fadeOut, duration, id; //TODO did not check datatype
-    Boolean forwardDirection;
-    ChaserRunOrder runOrder;
-    String name, path;
+    private List<Scene> scenes;
+    private Integer fadeIn;
+    private Integer fadeOut;
+    private Integer duration;
+    private Integer id; //TODO did not check datatype
+    private Boolean forwardDirection;
+    private ChaserRunOrder runOrder;
+    private String name;
+    private String path;
 
 
     /**
@@ -42,46 +46,45 @@ public class Chaser {
     /**
      * This should merge multiple chaser steps into one pattern
      * if the existing one has a different number of steps the smallest possible repetition is created
-     * e.g. exists only 1 step, adding 3 step, exsting one is copied to exist 3 times and only then merged.
+     * e.g. exists only 1 step, adding 3 step, existing one is copied to exist 3 times and only then merged.
      *
-     * @param morescenes a list of scenes which should be added of NON OVERLAPPING lights, in order
+     * @param moreScenes a list of scenes which should be added of NON OVERLAPPING lights, in order
      */
-    public void merge(List<Scene> morescenes) {
+    public void merge(List<Scene> moreScenes) {
         log.warn("check for duplicate lights?"); //TODO
 
-        log.debug("GCD of to be merged scenes is " + Helper.lcm(this.scenes.size(), morescenes.size()) +
-                " with existing " + this.scenes.size() + " add: " + morescenes.size());
-        if (this.scenes.size() != morescenes.size()) {
-            int lcm = Helper.lcm(this.scenes.size(), morescenes.size());
+        log.debug("GCD of to be merged scenes is " + Helper.lcm(this.scenes.size(), moreScenes.size()) +
+                " with existing " + this.scenes.size() + " add: " + moreScenes.size());
+        if (this.scenes.size() != moreScenes.size()) {
+            int lcm = Helper.lcm(this.scenes.size(), moreScenes.size());
 
-            List<Scene> templist = new ArrayList<>();
-            while (templist.size() < lcm) {
-                templist.addAll(this.scenes);
+            List<Scene> tempList = new ArrayList<>();
+            while (tempList.size() < lcm) {
+                tempList.addAll(this.scenes);
             }
-            this.scenes = templist;
+            this.scenes = tempList;
 
-            templist = new ArrayList<>();
-            while (templist.size() < lcm) {
-                templist.addAll(morescenes);
+            tempList = new ArrayList<>();
+            while (tempList.size() < lcm) {
+                tempList.addAll(moreScenes);
             }
-            morescenes = templist;
+            moreScenes = tempList;
         }
 
         for (int i = 0; i < this.scenes.size(); i++) {
-            this.scenes.get(i).merge(morescenes.get(i));
+            this.scenes.get(i).merge(moreScenes.get(i));
         }
     }
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("Chaser with name " + this.name)
-                .append(" with ID=" + id)
-                .append(" in Path=" + path)
-                .append(" WITH FadeIn/Out/Duration of " + fadeIn + ";" + fadeOut + ";" + duration)
-                .append(" AND RunOrder: " + (this.forwardDirection ? "Forward" : "Backward)"));
-        result.append(scenes.toString());
-        return result.toString();
+        String result = "Chaser with name " + this.name +
+                " with ID=" + id +
+                " in Path=" + path +
+                " WITH FadeIn/Out/Duration of " + fadeIn + ";" + fadeOut + ";" + duration +
+                " AND RunOrder: " + (this.forwardDirection ? "Forward" : "Backward)") +
+                scenes.toString();
+        return result;
     }
 
     /*

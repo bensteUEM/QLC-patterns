@@ -3,7 +3,7 @@ package stein.team.qlc.model;
 public class FixtureValue {
     Integer fixtureID;
 
-    int dim, red, green, blue; //Using in instead of byte for convinience
+    int dim, red, green, blue; //Using in instead of byte for convenience
     Boolean applyDim, applyRed, applyGreen, applyBlue;
 
     /**

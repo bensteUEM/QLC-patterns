@@ -12,10 +12,13 @@ import java.util.List;
 public class Scene {
     private static final Logger log = Logger.getLogger(Scene.class);
 
-    public List<LEDLightDRGB> lights;
-    public String name;
-    Integer fadeIn, fadeOut, duration, id; //TODO did not check datatype
-    String path;
+    private List<LEDLightDRGB> lights;
+    private String name;
+    private Integer fadeIn;
+    private Integer fadeOut;
+    private Integer duration;
+    private Integer id; //TODO did not check datatype
+    private String path;
 
     /**
      * Minimalistic Constructor for a function with default params
@@ -40,15 +43,16 @@ public class Scene {
      * @param scene which should be merged into the current one
      * @return number of lights in merged scene
      */
+    @SuppressWarnings("UnusedReturnValue")
     public int merge(Scene scene) {
         log.warn("Not implemented");
 
         LinkedList<LEDLightDRGB> lights1 = new LinkedList<>(), lights2 = new LinkedList<>();
-        String name1, name2 = "";
-
         lights1.addAll(this.lights);
-        name1 = this.name;
         lights2.addAll(scene.lights);
+
+        String name1, name2;
+        name1 = this.name;
         name2 = scene.name;
 
         this.lights.clear();
@@ -85,13 +89,12 @@ public class Scene {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("\n\tScene with name " + this.name)
-                .append(" with ID=" + id)
-                .append(" in Path=" + path);
-        result.append(" With FadeIn/Out/Duration of " + fadeIn + ";" + fadeOut + ";" + duration);
-        result.append("\n\t\t" + lights.toString());
-        return result.toString();
+        String result = "\n\tScene with name " +
+                this.name + " with ID=" +
+                id + " in Path=" + path +
+                " With FadeIn/Out/Duration of " + fadeIn + ";" + fadeOut + ";" + duration +
+                "\n\t\t" + lights.toString();
+        return result;
     }
 
 

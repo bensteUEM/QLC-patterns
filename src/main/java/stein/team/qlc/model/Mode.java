@@ -6,5 +6,5 @@ package stein.team.qlc.model;
  * HIGHLIGHT means one item will be highlighted, all others remain
  */
 public enum Mode {
-    REPLACE, HIGHLIGHT;
+    REPLACE, HIGHLIGHT
 }

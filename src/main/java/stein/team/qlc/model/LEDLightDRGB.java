@@ -1,12 +1,15 @@
 package stein.team.qlc.model;
 
 /**
- * Basic Colorful light definiion with
+ * Basic Colorful light definition with
  * Dimmer, Red, Green, Blue
  */
 public class LEDLightDRGB {
-    public Integer qlcID;
-    public FixtureValue fixtureValue;
+    @SuppressWarnings("CanBeFinal")
+    private Integer qlcID;
+    @SuppressWarnings("CanBeFinal")
+    private FixtureValue fixtureValue;
+    @SuppressWarnings("CanBeFinal")
     Integer dmxAdress;
 
     /**
@@ -24,7 +27,7 @@ public class LEDLightDRGB {
     /**
      * Creates a new light based on current light and
      *
-     * @param fixtureValue
+     * @param fixtureValue to be applied on the new light
      */
     public LEDLightDRGB(LEDLightDRGB light, FixtureValue fixtureValue) {
         this.dmxAdress = light.dmxAdress;
@@ -38,7 +41,7 @@ public class LEDLightDRGB {
      *
      * @param values that should be set if apply is true
      */
-    public void applyValues(FixtureValue values) {
+    private void applyValues(FixtureValue values) {
         if (values.applyDim) {
             this.fixtureValue.dim = values.dim;
         }

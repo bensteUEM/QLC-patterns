@@ -7,7 +7,7 @@ import stein.team.qlc.model.Scene;
 /**
  * A QLC Function is an element for export which can contain e.g. Chaser or Scene
  */
-public class QLCFunction {
+class QLCFunction {
     private static final Logger log = Logger.getLogger(QLCFunction.class);
 
     /**
