@@ -43,5 +43,23 @@ public class App {
         chaser.merge(scenesMiddle);
         chaser.merge(scenesRight);
         log.debug("Chaser: " + chaser);
+
+
+        //Another example non in order
+
+        pat1 = new Pattern(alllights.subList(3, 5));
+        pat1.movement = Movement.ALL;
+        List<Scene> scenes_inner = pat2.iteratePattern(val1, val2);
+        List<LEDLightDRGB> lights2 = new ArrayList();
+        lights2.addAll(alllights.subList(0, 3));
+        lights2.addAll(alllights.subList(5, 8));
+        pat2 = new Pattern(lights2);
+        pat2.movement = Movement.LEFTtoRIGHT;
+        List<Scene> scenes_outer = pat2.iteratePattern(val1, val2);
+
+        chaser = new Chaser(-1, ">||(>)", scenes_outer);
+        chaser.merge(scenes_inner);
+        log.debug("Chaser: " + chaser);
+
     }
 }

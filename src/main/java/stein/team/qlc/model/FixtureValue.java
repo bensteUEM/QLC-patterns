@@ -22,10 +22,11 @@ public class FixtureValue {
 
     /**
      * Create new fixture values with applicable defined values
-     * @param dim value from 0 to 255
-     * @param red value from 0 to 255
+     *
+     * @param dim   value from 0 to 255
+     * @param red   value from 0 to 255
      * @param green value from 0 to 255
-     * @param blue value from 0 to 255
+     * @param blue  value from 0 to 255
      */
     public FixtureValue(int dim, int red, int green, int blue) {
         applyDim = true;

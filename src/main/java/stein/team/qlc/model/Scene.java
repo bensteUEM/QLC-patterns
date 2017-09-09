@@ -2,6 +2,7 @@ package stein.team.qlc.model;
 
 import org.apache.log4j.Logger;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,8 +13,8 @@ public class Scene {
     private static final Logger log = Logger.getLogger(Scene.class);
 
     public List<LEDLightDRGB> lights;
-    Integer fadeIn, fadeOut, duration, id; //TODO did not check datatype
     public String name;
+    Integer fadeIn, fadeOut, duration, id; //TODO did not check datatype
     String path;
 
     /**
@@ -37,12 +38,48 @@ public class Scene {
      * Utility used to merge the values and names of two scenes
      *
      * @param scene which should be merged into the current one
+     * @return number of lights in merged scene
      */
-    public void merge(Scene scene) {
+    public int merge(Scene scene) {
         log.warn("Not implemented");
 
-        this.name += scene.name;
-        this.lights.addAll(scene.lights);
+        LinkedList<LEDLightDRGB> lights1 = new LinkedList<>(), lights2 = new LinkedList<>();
+        String name1, name2 = "";
+
+        lights1.addAll(this.lights);
+        name1 = this.name;
+        lights2.addAll(scene.lights);
+        name2 = scene.name;
+
+        this.lights.clear();
+        this.name = "";
+
+        while (lights1.size() + lights2.size() > 0) {
+            if (lights1.size() == 0) {
+                this.name += name2;
+                this.lights.addAll(lights2);
+                log.debug("1st scene added, adding all of 2nd");
+                break;
+            } else if (lights2.size() == 0) {
+                this.name += name1;
+                this.lights.addAll(lights1);
+                log.debug("2nd scene added, adding all of 1st");
+                break;
+            }
+
+            if (lights1.peek().dmxAdress < lights2.peek().dmxAdress) {
+                this.lights.add(lights1.remove());
+                this.name += name1.charAt(0);
+                name1 = name1.substring(1, name1.length());
+                log.debug("Adding light of 1st list");
+            } else {
+                this.lights.add(lights2.remove());
+                this.name += name2.charAt(0);
+                name2 = name2.substring(1, name2.length());
+                log.debug("Adding light of 2nd list");
+            }
+        }
+        return this.lights.size();
     }
 
 
