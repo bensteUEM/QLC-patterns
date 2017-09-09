@@ -45,8 +45,6 @@ public class Scene {
      */
     @SuppressWarnings("UnusedReturnValue")
     public int merge(Scene scene) {
-        log.warn("Not implemented");
-
         LinkedList<LEDLightDRGB> lights1 = new LinkedList<>(), lights2 = new LinkedList<>();
         lights1.addAll(this.lights);
         lights2.addAll(scene.lights);
