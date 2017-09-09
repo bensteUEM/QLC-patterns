@@ -1,4 +1,4 @@
-package stein.team.qlc.model;
+package team.stein.qlc.model;
 
 /**
  * The type of movement

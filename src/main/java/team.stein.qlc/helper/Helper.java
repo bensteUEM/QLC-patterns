@@ -1,4 +1,4 @@
-package stein.team.qlc.helper;
+package team.stein.qlc.helper;
 
 public class Helper {
 

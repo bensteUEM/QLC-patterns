@@ -1,8 +1,8 @@
-package stein.team.qlc;
+package team.stein.qlc;
 
 import org.apache.log4j.Logger;
-import stein.team.qlc.controller.Pattern;
-import stein.team.qlc.model.*;
+import team.stein.qlc.controller.Pattern;
+import team.stein.qlc.model.*;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package stein.team.qlc.model;
+package team.stein.qlc.model;
 
 import org.apache.log4j.Logger;
-import stein.team.qlc.helper.Helper;
+import team.stein.qlc.helper.Helper;
 
 import java.util.ArrayList;
 import java.util.List;

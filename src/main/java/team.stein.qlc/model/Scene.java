@@ -1,4 +1,4 @@
-package stein.team.qlc.model;
+package team.stein.qlc.model;
 
 import org.apache.log4j.Logger;
 

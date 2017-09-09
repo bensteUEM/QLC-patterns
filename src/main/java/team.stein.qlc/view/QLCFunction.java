@@ -1,8 +1,8 @@
-package stein.team.qlc.view;
+package team.stein.qlc.view;
 
 import org.apache.log4j.Logger;
-import stein.team.qlc.model.Chaser;
-import stein.team.qlc.model.Scene;
+import team.stein.qlc.model.Chaser;
+import team.stein.qlc.model.Scene;
 
 /**
  * A QLC Function is an element for export which can contain e.g. Chaser or Scene

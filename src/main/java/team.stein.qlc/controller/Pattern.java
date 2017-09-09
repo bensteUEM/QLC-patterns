@@ -1,12 +1,12 @@
-package stein.team.qlc.controller;
+package team.stein.qlc.controller;
 
 import org.apache.log4j.Logger;
-import stein.team.qlc.model.*;
+import team.stein.qlc.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static stein.team.qlc.model.Movement.LEFTtoRIGHT;
+import static team.stein.qlc.model.Movement.LEFTtoRIGHT;
 
 /**
  * Class which should be used to represent one pattern
