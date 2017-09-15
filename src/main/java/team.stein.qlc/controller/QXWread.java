@@ -6,7 +6,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotSupportedException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,13 +16,13 @@ import java.util.HashMap;
 
 public class QXWread {
 
-    private HashMap<Integer, Integer> dmxToQlc;
-    Document document;
-
     private static final Logger log = Logger.getLogger(QXWread.class);
+    Document document;
+    private HashMap<Integer, Integer> dmxToQlc;
 
     /**
      * Constructor
+     *
      * @param file saved from QLight+
      */
     public QXWread(File file) {
@@ -42,6 +41,7 @@ public class QXWread {
     /**
      * This function should read NodeList of Fixtures extracted from a QXW safe File and then enable calling a QLCId by DMX address
      * Following first analysis the dmxaddress seems to be zero based
+     *
      * @return Hashmap with DMXAddress -> QLC-ID
      */
     public HashMap<Integer, Integer> parseDMXtoQLCId(NodeList listOfFixtures) {
@@ -54,13 +54,30 @@ public class QXWread {
                 String id = eElement.getElementsByTagName("ID").item(0).getTextContent();
                 String dmxAdresses = eElement.getElementsByTagName("Address").item(0).getTextContent();
 
-                result.put(Integer.parseInt(dmxAdresses)+1, Integer.parseInt(id));
+                result.put(Integer.parseInt(dmxAdresses) + 1, Integer.parseInt(id));
             }
         }
 
-        result.put(0, 0);
         log.info("Created Hashmap for " + result.size() + " fixtures: " + result.toString());
         this.dmxToQlc = result;
         return result;
+    }
+
+    /**
+     * This function checks a list of nodes from a qxw file for the highest function ID
+     *
+     * @return an ID number which can be used for a new function
+     */
+    public int generateNewFunctionId(NodeList listOfFunction) {
+        int highest = -1;
+        for (int x = 0, size = listOfFunction.getLength(); x < size; x++) {
+            Node nNode = listOfFunction.item(x);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                String text = ((Element) nNode).getAttribute("ID");
+                int id = Integer.parseInt(text);
+                highest = (id > highest) ? id : highest;
+            }
+        }
+        return highest + 1;
     }
 }
