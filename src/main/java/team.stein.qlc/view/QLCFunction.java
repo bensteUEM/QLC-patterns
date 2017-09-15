@@ -7,8 +7,9 @@ import team.stein.qlc.model.Scene;
 /**
  * A QLC Function is an element for export which can contain e.g. Chaser or Scene
  */
-class QLCFunction {
+public class QLCFunction {
     private static final Logger log = Logger.getLogger(QLCFunction.class);
+    int id;
 
     /**
      * DIM VALUE
@@ -41,7 +42,8 @@ class QLCFunction {
      * <FixtureVal ID="36">1,255,2,255,3,255</FixtureVal>
      * </Function>
      */
-    public QLCFunction(Scene scene) {
+    public QLCFunction(Scene scene, int id) {
+        this.id = id;
         log.warn("not yet implemented export");
     }
 
@@ -63,9 +65,8 @@ class QLCFunction {
      * <Step Number="7" FadeIn="0" Hold="0" FadeOut="0">235</Step>
      * </Function>
      */
-    public QLCFunction(Chaser chaser) {
+    public QLCFunction(Chaser chaser, int id) {
+        this.id = id;
         log.warn("not yet implemented chaser export");
     }
-
-
 }

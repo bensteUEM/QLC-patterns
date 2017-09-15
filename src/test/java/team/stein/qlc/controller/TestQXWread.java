@@ -45,6 +45,6 @@ public class TestQXWread {
         Element rootNode = qxWread.document.getDocumentElement();
         NodeList engineNodes = rootNode.getElementsByTagName("Engine").item(0).getChildNodes();
         NodeList nodeList = ((DeferredElementImpl) engineNodes).getElementsByTagName("Function");
-        assertEquals(239, qxWread.generateNewFunctionId(nodeList) - 1);
+        assertEquals(239, qxWread.getHighestFunctionID(nodeList) );
     }
 }

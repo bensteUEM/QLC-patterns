@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class QXWread {
 
     private static final Logger log = Logger.getLogger(QXWread.class);
-    Document document;
+    public Document document;
     private HashMap<Integer, Integer> dmxToQlc;
 
     /**
@@ -68,7 +68,7 @@ public class QXWread {
      *
      * @return an ID number which can be used for a new function
      */
-    public int generateNewFunctionId(NodeList listOfFunction) {
+    public int getHighestFunctionID(NodeList listOfFunction) {
         int highest = -1;
         for (int x = 0, size = listOfFunction.getLength(); x < size; x++) {
             Node nNode = listOfFunction.item(x);
@@ -78,6 +78,6 @@ public class QXWread {
                 highest = (id > highest) ? id : highest;
             }
         }
-        return highest + 1;
+        return highest;
     }
 }
