@@ -60,12 +60,10 @@ public class Scene {
             if (lights1.size() == 0) {
                 this.name += name2;
                 this.lights.addAll(lights2);
-                log.debug("1st scene added, adding all of 2nd");
                 break;
             } else if (lights2.size() == 0) {
                 this.name += name1;
                 this.lights.addAll(lights1);
-                log.debug("2nd scene added, adding all of 1st");
                 break;
             }
 
