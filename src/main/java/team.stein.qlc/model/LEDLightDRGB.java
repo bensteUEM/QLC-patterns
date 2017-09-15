@@ -6,11 +6,11 @@ package team.stein.qlc.model;
  */
 public class LEDLightDRGB {
     @SuppressWarnings("CanBeFinal")
+    Integer dmxAdress;
+    @SuppressWarnings("CanBeFinal")
     private Integer qlcID;
     @SuppressWarnings("CanBeFinal")
     private FixtureValue fixtureValue;
-    @SuppressWarnings("CanBeFinal")
-    Integer dmxAdress;
 
     /**
      * Basic light definition
