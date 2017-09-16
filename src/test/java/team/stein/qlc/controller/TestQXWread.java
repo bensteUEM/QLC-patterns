@@ -27,10 +27,8 @@ public class TestQXWread {
     @Test
     public void testFixtureReading() throws Exception {
         Element rootNode = qxWread.document.getDocumentElement();
-        log.warn("Rootnode= " + rootNode.getTagName());
-
-        NodeList nodeList = rootNode.getElementsByTagName("Fixture");
-        log.info("nodelist with  " + nodeList.getLength());
+        NodeList engineNodes = rootNode.getElementsByTagName("Engine").item(0).getChildNodes();
+        NodeList nodeList = ((DeferredElementImpl) engineNodes).getElementsByTagName("Fixture");
 
         qxWread.parseDMXtoQLCId(nodeList);
         assert (true);
@@ -45,6 +43,6 @@ public class TestQXWread {
         Element rootNode = qxWread.document.getDocumentElement();
         NodeList engineNodes = rootNode.getElementsByTagName("Engine").item(0).getChildNodes();
         NodeList nodeList = ((DeferredElementImpl) engineNodes).getElementsByTagName("Function");
-        assertEquals(239, qxWread.getHighestFunctionID(nodeList) );
+        assertEquals(239, qxWread.getHighestFunctionID(nodeList));
     }
 }
