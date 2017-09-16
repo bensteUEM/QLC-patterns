@@ -1,10 +1,9 @@
 package team.stein.qlc.model;
 
 public class FixtureValue {
+    public int dim, red, green, blue; //Using in instead of byte for convenience
+    public Boolean applyDim, applyRed, applyGreen, applyBlue;
     Integer fixtureID;
-
-    int dim, red, green, blue; //Using in instead of byte for convenience
-    Boolean applyDim, applyRed, applyGreen, applyBlue;
 
     /**
      * Create new empty fixture values
@@ -38,6 +37,15 @@ public class FixtureValue {
         this.red = red;
         this.green = green;
         this.blue = blue;
+    }
+
+    /**
+     * Checks if Fixture values
+     *
+     * @return should be applied at all
+     */
+    public boolean anyApplies() {
+        return (applyDim | applyRed | applyGreen | applyBlue);
     }
 
     @Override

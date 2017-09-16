@@ -1,72 +1,120 @@
 package team.stein.qlc.view;
 
 import org.apache.log4j.Logger;
-import team.stein.qlc.model.Chaser;
-import team.stein.qlc.model.Scene;
+import team.stein.qlc.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * A QLC Function is an element for export which can contain e.g. Chaser or Scene
+ * A QLC Function is an element for export which can contain e.g. Chaser or Scene CAN NOT HOLD Script
  */
 public class QLCFunction {
     private static final Logger log = Logger.getLogger(QLCFunction.class);
-    int id;
+    boolean isChaser;
+    private Function internalFunction;
 
-    /**
-     * DIM VALUE
-     * <Function ID="235" Type="Scene" Name="--- -- --X" Path="15Uhr Godi/DIM Move Accent Pattern">
-     * <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-     * <ChannelGroupsVal>9,0</ChannelGroupsVal>
-     * <FixtureVal ID="29">0,0</FixtureVal>
-     * <FixtureVal ID="30">0,0</FixtureVal>
-     * <FixtureVal ID="31">0,0</FixtureVal>
-     * <FixtureVal ID="32">0,0</FixtureVal>
-     * <FixtureVal ID="33">0,0</FixtureVal>
-     * <FixtureVal ID="34">0,0</FixtureVal>
-     * <FixtureVal ID="35">0,0</FixtureVal>
-     * <FixtureVal ID="36">0,255</FixtureVal>
-     * </Function>
-     * <p>
-     * <p>
-     * <p>
-     * COLOR VALUE
-     * <Function ID="239" Type="Scene" Name="XXXX XXXX white" Path="15Uhr Godi/Color Static">
-     * <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-     * <ChannelGroupsVal>12,255,10,255,11,255</ChannelGroupsVal>
-     * <FixtureVal ID="29">1,255,2,255,3,255</FixtureVal>
-     * <FixtureVal ID="30">1,255,2,255,3,255</FixtureVal>
-     * <FixtureVal ID="31">1,255,2,255,3,255</FixtureVal>
-     * <FixtureVal ID="32">1,255,2,255,3,255</FixtureVal>
-     * <FixtureVal ID="33">1,255,2,255,3,255</FixtureVal>
-     * <FixtureVal ID="34">1,255,2,255,3,255</FixtureVal>
-     * <FixtureVal ID="35">1,255,2,255,3,255</FixtureVal>
-     * <FixtureVal ID="36">1,255,2,255,3,255</FixtureVal>
-     * </Function>
-     */
-    public QLCFunction(Scene scene, int id) {
-        this.id = id;
+    public QLCFunction(Scene scene) {
+        this.isChaser = false;
+        this.internalFunction = scene;
         log.warn("not yet implemented export");
     }
 
+    public QLCFunction(Chaser chaser) {
+        this.isChaser = true;
+        this.internalFunction = chaser;
 
-    /**
-     * CHASER WITH LINK TO SCENES
-     * <Function ID="229" Type="Chaser" Name="&gt;" Path="15 Uhr GoDi/DIM Move Accent Pattern">
-     * <Speed FadeIn="0" FadeOut="0" Duration="1000"/>
-     * <Direction>Forward</Direction>
-     * <ChaserRunOrder>Loop</ChaserRunOrder>
-     * <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
-     * <Step Number="0" FadeIn="0" Hold="0" FadeOut="0">225</Step>
-     * <Step Number="1" FadeIn="0" Hold="0" FadeOut="0">226</Step>
-     * <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">230</Step>
-     * <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">231</Step>
-     * <Step Number="4" FadeIn="0" Hold="0" FadeOut="0">232</Step>
-     * <Step Number="5" FadeIn="0" Hold="0" FadeOut="0">233</Step>
-     * <Step Number="6" FadeIn="0" Hold="0" FadeOut="0">234</Step>
-     * <Step Number="7" FadeIn="0" Hold="0" FadeOut="0">235</Step>
-     * </Function>
-     */
-    public QLCFunction(Chaser chaser, int id) {
-        this.id = id;
         log.warn("not yet implemented chaser export");
+    }
+
+    @Override
+    public String toString() {
+        String type = (this.isChaser) ? "Chaser" : "Scene";
+        return type + " ID=" + this.internalFunction.getID();
+    }
+
+    public String toQXWString() {
+        StringBuilder qxwText = new StringBuilder();
+        qxwText.append("\n\t\t<Function ID=\"").append(this.internalFunction.getID()).append("\" Type=\"");
+
+        qxwText.append((isChaser ? "Chaser" : "Scene")).append("\"");
+
+        qxwText.append(" Name=\"").append(this.internalFunction.getName()).append("\"")
+                .append(" Path=\"").append(this.internalFunction.getPath()).append("\"")
+                .append(">");
+        qxwText.append("\n\t\t\t<Speed FadeIn=\"").append(this.internalFunction.getFadeIn()).append("\"")
+                .append(" FadeOut=\"").append(this.internalFunction.getFadeOut()).append("\"")
+                .append(" Duration=\"").append(this.internalFunction.getDuration()).append("\"")
+                .append("/>");
+
+        if (this.internalFunction instanceof Chaser) {
+            Chaser chaser = (Chaser) internalFunction;
+            qxwText.append("\n\t\t\t<Direction>" + ((chaser.forwardDirection) ? "Forward" : "Backward") + "</Direction>");
+            qxwText.append("\n\t\t\t<ChaserRunOrder>");
+
+            switch (chaser.runOrder) {
+                case LOOP:
+                    qxwText.append("Loop");
+                    break;
+                case SINGLE_SHOT:
+                    qxwText.append("Single Shot");
+                    break;
+                case PING_PONG:
+                    qxwText.append("Ping Pong");
+                    break;
+                case RANDOM:
+                    qxwText.append("Random");
+                    break;
+            }
+            qxwText.append("</ChaserRunOrder>");
+
+            qxwText.append("\n\t\t\t<SpeedModes FadeIn=\"Default\" FadeOut=\"Default\" Duration=\"Common\"/>");
+
+            for (int i = 0; i < chaser.scenes.size(); i++) {
+                qxwText.append("\n\t\t\t<Step Number=\"").append(i).append("\"")
+                        .append(" FadeIn=\"").append(0).append("\"")
+                        .append(" Hold=\"").append(0).append("\"")
+                        .append(" FadeOut=\"").append(0).append("\">")
+                        .append(chaser.scenes.get(i).getID())
+                        .append("</Step>");
+            }
+        } else if (this.internalFunction instanceof Scene) {
+            Scene scene = (Scene) internalFunction;
+            /* <ChannelGroupsVal>12,255,10,255,11,255</ChannelGroupsVal>*/
+            log.info("If this Scene also contains ChannelGroupsVal they are not exported");
+
+            for (int i = 0; i < scene.lights.size(); i++) {
+                LEDLightDRGB light = scene.lights.get(i);
+                FixtureValue fixtureValue = light.fixtureValue;
+
+                if (fixtureValue.anyApplies()) { //TODO for some reason this is always 0 #2
+                    qxwText.append("\n\t\t\t<FixtureVal ID=\"").append(light.qlcID).append("\">");
+
+                    List<String> values = new ArrayList<>();
+                    if (fixtureValue.applyDim) {
+                        values.add("0,");
+                        values.add(Integer.toString(fixtureValue.dim));
+                    }
+                    if (fixtureValue.applyRed) {
+                        values.add("0,");
+                        values.add(Integer.toString(fixtureValue.red));
+                    }
+                    if (fixtureValue.applyGreen) {
+                        values.add("0,");
+                        values.add(Integer.toString(fixtureValue.green));
+                    }
+                    if (fixtureValue.applyBlue) {
+                        values.add("0,");
+                        values.add(Integer.toString(fixtureValue.blue));
+                    }
+                    qxwText.append(String.join(",", values));
+                    qxwText.append("</FixtureVal>");
+                }
+            }
+        }
+
+        qxwText.append("\n\t\t</Function>");
+
+        return qxwText.toString();
     }
 }

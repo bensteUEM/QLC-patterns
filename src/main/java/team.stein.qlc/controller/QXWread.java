@@ -42,6 +42,7 @@ public class QXWread {
      * This function should read NodeList of Fixtures extracted from a QXW safe File and then enable calling a QLCId by DMX address
      * Following first analysis the dmxaddress seems to be zero based
      *
+     * @param listOfFixtures a list of all Fixture Nodes within Engine
      * @return Hashmap with DMXAddress -> QLC-ID
      */
     public HashMap<Integer, Integer> parseDMXtoQLCId(NodeList listOfFixtures) {

@@ -8,16 +8,34 @@ import java.util.List;
 
 /**
  * A Chaser is a series of Scenes
+ * <p>
+ * SAMPLE from Existing QXW File
+ * <p>
+ * <Function ID="229" Type="Chaser" Name="&gt;" Path="15 Uhr GoDi/DIM Move Accent Pattern">
+ * <Speed FadeIn="0" FadeOut="0" Duration="1000"/>
+ * <Direction>Forward</Direction>
+ * <ChaserRunOrder>Loop</ChaserRunOrder>
+ * <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
+ * <Step Number="0" FadeIn="0" Hold="0" FadeOut="0">225</Step>
+ * <Step Number="1" FadeIn="0" Hold="0" FadeOut="0">226</Step>
+ * <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">230</Step>
+ * <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">231</Step>
+ * <Step Number="4" FadeIn="0" Hold="0" FadeOut="0">232</Step>
+ * <Step Number="5" FadeIn="0" Hold="0" FadeOut="0">233</Step>
+ * <Step Number="6" FadeIn="0" Hold="0" FadeOut="0">234</Step>
+ * <Step Number="7" FadeIn="0" Hold="0" FadeOut="0">235</Step>
+ * </Function>
  */
-public class Chaser {
+
+public class Chaser implements Function {
     private static final Logger log = Logger.getLogger(Chaser.class);
-    private List<Scene> scenes;
+    public List<Scene> scenes;
+    public Boolean forwardDirection;
+    public ChaserRunOrder runOrder;
+    private Integer id = -1;
     private Integer fadeIn;
     private Integer fadeOut;
     private Integer duration;
-    private Integer id; //TODO did not check datatype
-    private Boolean forwardDirection;
-    private ChaserRunOrder runOrder;
     private String name;
     private String path;
 
@@ -87,20 +105,43 @@ public class Chaser {
         return result;
     }
 
-    /*
-      <Function ID="229" Type="Chaser" Name="&gt;" Path="15 Uhr GoDi/DIM Move Accent Pattern">
-   <Speed FadeIn="0" FadeOut="0" Duration="1000"/>
-   <Direction>Forward</Direction>
-   <ChaserRunOrder>Loop</ChaserRunOrder>
-   <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
-   <Step Number="0" FadeIn="0" Hold="0" FadeOut="0">225</Step>
-   <Step Number="1" FadeIn="0" Hold="0" FadeOut="0">226</Step>
-   <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">230</Step>
-   <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">231</Step>
-   <Step Number="4" FadeIn="0" Hold="0" FadeOut="0">232</Step>
-   <Step Number="5" FadeIn="0" Hold="0" FadeOut="0">233</Step>
-   <Step Number="6" FadeIn="0" Hold="0" FadeOut="0">234</Step>
-   <Step Number="7" FadeIn="0" Hold="0" FadeOut="0">235</Step>
-  </Function>
-     */
+    @Override
+    public Integer getID() {
+        return this.id;
+    }
+
+    @Override
+    public Integer setID(int number) {
+        return this.id = number;
+    }
+
+    @Override
+    public Integer getFadeIn() {
+        return this.fadeIn;
+    }
+
+    @Override
+    public Integer getFadeOut() {
+        return this.fadeOut;
+    }
+
+    @Override
+    public Integer getDuration() {
+        return this.duration;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getPath() {
+        return this.path;
+    }
+
+    @Override
+    public void addPathPrefix(String s) {
+        this.path = s + this.path;
+    }
 }

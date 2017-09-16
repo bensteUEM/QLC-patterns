@@ -11,15 +11,18 @@ import team.stein.qlc.view.QLCFunction;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * Hello world!
+ * Application which should generate valid Chasers and Scenes which can be used with an existing QXW file as used by QLC+
  */
 class App {
     private static final Logger log = Logger.getLogger(App.class);
-    public static QXWread qxwRead;
+    private static QXWread qxwRead;
     private static int highestFunctionID;
+    private static HashMap<Integer, Integer> parseDMXtoQLCId;
+
 
     public static void main(String[] args) {
         // read the base file
@@ -29,18 +32,21 @@ class App {
         NodeList functionNodes = ((DeferredElementImpl) engineNodes).getElementsByTagName("Function");
         highestFunctionID = qxwRead.getHighestFunctionID(functionNodes);
 
+        NodeList fixtureNodes = ((DeferredElementImpl) engineNodes).getElementsByTagName("Fixture");
+        parseDMXtoQLCId = qxwRead.parseDMXtoQLCId(fixtureNodes);
+
         List<LEDLightDRGB> allLights = new ArrayList<>();
         // generate the TourLED group as used in regular EFG setup with 8 spots
 
         for (Integer i = 130; i <= 200; i += 10) {
-            allLights.add(new LEDLightDRGB(i, -1));
+            allLights.add(new LEDLightDRGB(i, parseDMXtoQLCId.get(i)));
         }
 
         firstCase(allLights);
-        anotherCase(allLights);
+        //anotherCase(allLights);
     }
 
-    public static void firstCase(List allLights){
+    public static void firstCase(List allLights) {
         Pattern pat1 = new Pattern(allLights.subList(0, 3));
         pat1.movement = Movement.LEFTtoRIGHT;
         log.debug("Generated: " + pat1);
@@ -61,16 +67,40 @@ class App {
         chaser.merge(scenesMiddle);
         chaser.merge(scenesRight);
 
-        log.debug("Chaser: " + chaser);
+        log.debug("PRE-IDs : Chaser: " + chaser);
 
-        for (Scene scene : scenesLeft){
-            QLCFunction function = new QLCFunction(scene,highestFunctionID+1);
+
+        List<Function> allFunctionsForExport = new ArrayList();
+        allFunctionsForExport.add(chaser);
+        allFunctionsForExport.addAll(chaser.scenes);
+
+        /**
+         * Assign function IDs and add to export
+         */
+        List<QLCFunction> export = new ArrayList<>();
+        for (Function function : allFunctionsForExport) {
+            if (function instanceof Scene) {
+                ((Scene) function).setID(highestFunctionID + 1);
+                export.add(new QLCFunction((Scene) function));
+            } else if (function instanceof Chaser) {
+                ((Chaser) function).setID(highestFunctionID + 1);
+                export.add(new QLCFunction((Chaser) function));
+            }
+            function.addPathPrefix("JAVATest");
             highestFunctionID++;
+        }
+        log.debug("POST-IDs : Chaser: " + chaser);
+
+
+        log.debug("QLC Functions List: " + export);
+
+        for (QLCFunction function : export) {
+            log.debug(function.toQXWString());
         }
         //TODO continue here to prepare IDs for export? #1
     }
 
-    public static void anotherCase(List allLights){
+    public static void anotherCase(List allLights) {
         FixtureValue val1 = new FixtureValue();
         FixtureValue val2 = new FixtureValue(0, 255, 255, 255);
 

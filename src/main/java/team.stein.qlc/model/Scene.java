@@ -8,16 +8,29 @@ import java.util.List;
 /**
  * A scene is one representation of multiple lights at one given moment
  * it may contain additional arguments for default times and other metadata
+ * <p>
+ * SAMPLE from original QXW File Format
+ * <Function ID="204" Type="Chaser" Name="Decke Blau/Gelb" Path="15 Uhr GoDi/OLD">
+ * <Speed FadeIn="100" FadeOut="200" Duration="1107968"/>
+ * <Direction>Forward</Direction>
+ * <ChaserRunOrder>Loop</ChaserRunOrder>
+ * <SpeedModes FadeIn="Common" FadeOut="Common" Duration="Common"/>
+ * <Step Number="0" FadeIn="200" Hold="0" FadeOut="200">121</Step>
+ * <Step Number="1" FadeIn="0" Hold="0" FadeOut="0">162</Step>
+ * <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">161</Step>
+ * <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">116</Step>
+ * </Function>
  */
-public class Scene {
+
+public class Scene implements Function {
     private static final Logger log = Logger.getLogger(Scene.class);
 
-    private List<LEDLightDRGB> lights;
-    private String name;
+    public List<LEDLightDRGB> lights;
     private Integer fadeIn;
     private Integer fadeOut;
     private Integer duration;
-    private Integer id; //TODO did not check datatype
+    private Integer id;
+    private String name;
     private String path;
 
     /**
@@ -93,17 +106,43 @@ public class Scene {
         return result;
     }
 
+    @Override
+    public Integer getID() {
+        return this.id;
+    }
 
-    /*
-    <Function ID="204" Type="Chaser" Name="Decke Blau/Gelb" Path="15 Uhr GoDi/OLD">
-   <Speed FadeIn="100" FadeOut="200" Duration="1107968"/>
-   <Direction>Forward</Direction>
-   <ChaserRunOrder>Loop</ChaserRunOrder>
-   <SpeedModes FadeIn="Common" FadeOut="Common" Duration="Common"/>
-   <Step Number="0" FadeIn="200" Hold="0" FadeOut="200">121</Step>
-   <Step Number="1" FadeIn="0" Hold="0" FadeOut="0">162</Step>
-   <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">161</Step>
-   <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">116</Step>
-  </Function>
-     */
+    @Override
+    public Integer setID(int number) {
+        return this.id = number;
+    }
+
+    @Override
+    public Integer getFadeIn() {
+        return this.fadeIn;
+    }
+
+    @Override
+    public Integer getFadeOut() {
+        return this.fadeOut;
+    }
+
+    @Override
+    public Integer getDuration() {
+        return this.duration;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getPath() {
+        return this.path;
+    }
+
+    @Override
+    public void addPathPrefix(String s) {
+        this.path = (this.path.equals("")) ? s : s + this.path;
+    }
 }
