@@ -47,6 +47,7 @@ class App {
 
         List<QLCFunction> export = accentDim1(allLights);
         export.addAll(accentDim2(allLights));
+        export.addAll(accentDim3(allLights));
         exportToFile(export);
     }
 
@@ -118,6 +119,44 @@ class App {
         log.debug("QLC Functions List: " + allFunctionsForExport);
         return assignIDs(allFunctionsForExport);
     }
+
+    /**
+     * Accent DIM 3 <- <-
+     *
+     * @param allLights
+     * @return
+     */
+    public static List<QLCFunction> accentDim3(List allLights) {
+        FixtureValue val1 = new FixtureValue(0, 0, 0, 0);
+        val1.applyDim = true;
+        val1.applyRed = false;
+        val1.applyGreen = false;
+        val1.applyBlue = false;
+        FixtureValue val2 = new FixtureValue(255, 0, 0, 0);
+        val2.applyDim = true;
+        val2.applyRed = false;
+        val2.applyGreen = false;
+        val2.applyBlue = false;
+
+        Pattern pat1 = new Pattern(allLights.subList(0, 4));
+        pat1.movement = Movement.RIGHTtoLEFT;
+        List<Scene> scenesLeft = pat1.iteratePattern(val1, val2);
+        Pattern pat2 = new Pattern(allLights.subList(4, 8));
+        pat2.movement = Movement.RIGHTtoLEFT;
+        List<Scene> scenesRight = pat2.iteratePattern(val1, val2);
+
+        Chaser chaser = new Chaser(-1, "<-<-", scenesLeft);
+        chaser.merge(scenesRight);
+
+        log.debug("PRE-IDs : Chaser: " + chaser);
+        List<Function> allFunctionsForExport = new ArrayList();
+        allFunctionsForExport.add(chaser);
+        allFunctionsForExport.addAll(chaser.scenes);
+
+        log.debug("QLC Functions List: " + allFunctionsForExport);
+        return assignIDs(allFunctionsForExport);
+    }
+
 
     /**
      * Converts internal objects to QLCFunctions and assigns IDs
