@@ -17,14 +17,11 @@ public class QLCFunction {
     public QLCFunction(Scene scene) {
         this.isChaser = false;
         this.internalFunction = scene;
-        log.warn("not yet implemented export");
     }
 
     public QLCFunction(Chaser chaser) {
         this.isChaser = true;
         this.internalFunction = chaser;
-
-        log.warn("not yet implemented chaser export");
     }
 
     @Override

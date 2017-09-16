@@ -69,7 +69,7 @@ public class Chaser implements Function {
      * @param moreScenes a list of scenes which should be added of NON OVERLAPPING lights, in order
      */
     public void merge(List<Scene> moreScenes) {
-        log.warn("check for duplicate lights?"); //TODO
+        log.warn("check for duplicate lights?"); //TODO #3
 
         log.debug("GCD of to be merged scenes is " + Helper.lcm(this.scenes.size(), moreScenes.size()) +
                 " with existing " + this.scenes.size() + " add: " + moreScenes.size());
