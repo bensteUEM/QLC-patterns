@@ -72,9 +72,9 @@ public class QLCFunction {
 
             for (int i = 0; i < chaser.scenes.size(); i++) {
                 qxwText.append("\n\t\t\t<Step Number=\"").append(i).append("\"")
-                        .append(" FadeIn=\"").append(0).append("\"")
+                        .append(" FadeIn=\"").append(chaser.scenes.get(i).getFadeIn()).append("\"")
                         .append(" Hold=\"").append(0).append("\"")
-                        .append(" FadeOut=\"").append(0).append("\">")
+                        .append(" FadeOut=\"").append(chaser.scenes.get(i).getFadeOut()).append("\">")
                         .append(chaser.scenes.get(i).getID())
                         .append("</Step>");
             }
@@ -92,19 +92,19 @@ public class QLCFunction {
 
                     List<String> values = new ArrayList<>();
                     if (fixtureValue.applyDim) {
-                        values.add("0,");
+                        values.add("0");
                         values.add(Integer.toString(fixtureValue.dim));
                     }
                     if (fixtureValue.applyRed) {
-                        values.add("0,");
+                        values.add("1");
                         values.add(Integer.toString(fixtureValue.red));
                     }
                     if (fixtureValue.applyGreen) {
-                        values.add("0,");
+                        values.add("2");
                         values.add(Integer.toString(fixtureValue.green));
                     }
                     if (fixtureValue.applyBlue) {
-                        values.add("0,");
+                        values.add("3");
                         values.add(Integer.toString(fixtureValue.blue));
                     }
                     qxwText.append(String.join(",", values));
