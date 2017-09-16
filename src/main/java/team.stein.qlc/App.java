@@ -25,6 +25,7 @@ class App {
     private static QXWread qxwRead;
     private static int highestFunctionID;
     private static HashMap<Integer, Integer> parseDMXtoQLCId;
+    private static HashMap<String,FixtureValue> colors;
 
 
     public static void main(String[] args) {
@@ -44,10 +45,27 @@ class App {
         for (Integer i = 130; i <= 200; i += 10) {
             allLights.add(new LEDLightDRGB(i, parseDMXtoQLCId.get(i)));
         }
+        //Colors
+        colors = new HashMap<>();
+        FixtureValue val1 = new FixtureValue(0, 0, 0, 0);
+        val1.applyDim = true;
+        val1.applyRed = false;
+        val1.applyGreen = false;
+        val1.applyBlue = false;
+        colors.put("ON",val1);
 
+        FixtureValue val2 = new FixtureValue(255, 0, 0, 0);
+        val2.applyDim = true;
+        val2.applyRed = false;
+        val2.applyGreen = false;
+        val2.applyBlue = false;
+        colors.put("OFF",val2);
+
+        //application
         List<QLCFunction> export = accentDim1(allLights);
         export.addAll(accentDim2(allLights));
         export.addAll(accentDim3(allLights));
+        export.addAll(accentDim4(allLights));
         exportToFile(export);
     }
 
@@ -58,20 +76,9 @@ class App {
      * @return
      */
     public static List<QLCFunction> accentDim1(List allLights) {
-        FixtureValue val1 = new FixtureValue(0, 0, 0, 0);
-        val1.applyDim = true;
-        val1.applyRed = false;
-        val1.applyGreen = false;
-        val1.applyBlue = false;
-        FixtureValue val2 = new FixtureValue(255, 0, 0, 0);
-        val2.applyDim = true;
-        val2.applyRed = false;
-        val2.applyGreen = false;
-        val2.applyBlue = false;
-
         Pattern pat1 = new Pattern(allLights.subList(0, 8));
         pat1.movement = Movement.ALL;
-        List<Scene> scenes = pat1.iteratePattern(val1, val2);
+        List<Scene> scenes = pat1.iteratePattern(colors.get("ON"),colors.get("OFF"));
 
         Chaser chaser = new Chaser(-1, "all", scenes);
 
@@ -90,23 +97,12 @@ class App {
      * @return
      */
     public static List<QLCFunction> accentDim2(List allLights) {
-        FixtureValue val1 = new FixtureValue(0, 0, 0, 0);
-        val1.applyDim = true;
-        val1.applyRed = false;
-        val1.applyGreen = false;
-        val1.applyBlue = false;
-        FixtureValue val2 = new FixtureValue(255, 0, 0, 0);
-        val2.applyDim = true;
-        val2.applyRed = false;
-        val2.applyGreen = false;
-        val2.applyBlue = false;
-
         Pattern pat1 = new Pattern(allLights.subList(0, 4));
         pat1.movement = Movement.LEFTtoRIGHT;
-        List<Scene> scenesLeft = pat1.iteratePattern(val1, val2);
+        List<Scene> scenesLeft = pat1.iteratePattern(colors.get("ON"),colors.get("OFF"));
         Pattern pat2 = new Pattern(allLights.subList(4, 8));
         pat2.movement = Movement.LEFTtoRIGHT;
-        List<Scene> scenesRight = pat2.iteratePattern(val1, val2);
+        List<Scene> scenesRight = pat2.iteratePattern(colors.get("ON"),colors.get("OFF"));
 
         Chaser chaser = new Chaser(-1, "->->", scenesLeft);
         chaser.merge(scenesRight);
@@ -127,23 +123,38 @@ class App {
      * @return
      */
     public static List<QLCFunction> accentDim3(List allLights) {
-        FixtureValue val1 = new FixtureValue(0, 0, 0, 0);
-        val1.applyDim = true;
-        val1.applyRed = false;
-        val1.applyGreen = false;
-        val1.applyBlue = false;
-        FixtureValue val2 = new FixtureValue(255, 0, 0, 0);
-        val2.applyDim = true;
-        val2.applyRed = false;
-        val2.applyGreen = false;
-        val2.applyBlue = false;
-
         Pattern pat1 = new Pattern(allLights.subList(0, 4));
         pat1.movement = Movement.RIGHTtoLEFT;
-        List<Scene> scenesLeft = pat1.iteratePattern(val1, val2);
+        List<Scene> scenesLeft = pat1.iteratePattern(colors.get("ON"),colors.get("OFF"));
         Pattern pat2 = new Pattern(allLights.subList(4, 8));
         pat2.movement = Movement.RIGHTtoLEFT;
-        List<Scene> scenesRight = pat2.iteratePattern(val1, val2);
+        List<Scene> scenesRight = pat2.iteratePattern(colors.get("ON"),colors.get("OFF"));
+
+        Chaser chaser = new Chaser(-1, "<-<-", scenesLeft);
+        chaser.merge(scenesRight);
+
+        log.debug("PRE-IDs : Chaser: " + chaser);
+        List<Function> allFunctionsForExport = new ArrayList();
+        allFunctionsForExport.add(chaser);
+        allFunctionsForExport.addAll(chaser.scenes);
+
+        log.debug("QLC Functions List: " + allFunctionsForExport);
+        return assignIDs(allFunctionsForExport);
+    }
+
+    /**
+     * Accent DIM 4 -> <-
+     *
+     * @param allLights
+     * @return
+     */
+    public static List<QLCFunction> accentDim4(List allLights) {
+        Pattern pat1 = new Pattern(allLights.subList(0, 4));
+        pat1.movement = Movement.LEFTtoRIGHT;
+        List<Scene> scenesLeft = pat1.iteratePattern(colors.get("ON"),colors.get("OFF"));
+        Pattern pat2 = new Pattern(allLights.subList(4, 8));
+        pat2.movement = Movement.RIGHTtoLEFT;
+        List<Scene> scenesRight = pat2.iteratePattern(colors.get("ON"),colors.get("OFF"));
 
         Chaser chaser = new Chaser(-1, "<-<-", scenesLeft);
         chaser.merge(scenesRight);
