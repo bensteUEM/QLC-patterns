@@ -9,7 +9,10 @@ import team.stein.qlc.controller.QXWread;
 import team.stein.qlc.model.*;
 import team.stein.qlc.view.QLCFunction;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,42 +45,88 @@ class App {
             allLights.add(new LEDLightDRGB(i, parseDMXtoQLCId.get(i)));
         }
 
-        firstCase(allLights);
-        //anotherCase(allLights);
+        List<QLCFunction> export = accentDim1(allLights);
+        export.addAll(accentDim2(allLights));
+        exportToFile(export);
     }
 
-    public static void firstCase(List allLights) {
-        Pattern pat1 = new Pattern(allLights.subList(0, 3));
-        pat1.movement = Movement.LEFTtoRIGHT;
-        log.debug("Generated: " + pat1);
+    /**
+     * Accent DIM 1 - ALL
+     *
+     * @param allLights
+     * @return
+     */
+    public static List<QLCFunction> accentDim1(List allLights) {
+        FixtureValue val1 = new FixtureValue(0, 0, 0, 0);
+        val1.applyDim = true;
+        val1.applyRed = false;
+        val1.applyGreen = false;
+        val1.applyBlue = false;
+        FixtureValue val2 = new FixtureValue(255, 0, 0, 0);
+        val2.applyDim = true;
+        val2.applyRed = false;
+        val2.applyGreen = false;
+        val2.applyBlue = false;
 
-        FixtureValue val1 = new FixtureValue();
-        FixtureValue val2 = new FixtureValue(0, 255, 255, 255);
+        Pattern pat1 = new Pattern(allLights.subList(0, 8));
+        pat1.movement = Movement.ALL;
+        List<Scene> scenes = pat1.iteratePattern(val1, val2);
 
-        List<Scene> scenesLeft = pat1.iteratePattern(val1, val2);
-
-        Pattern pat2 = new Pattern(allLights.subList(3, 5));
-        pat2.movement = Movement.ALL;
-        List<Scene> scenesMiddle = pat2.iteratePattern(val1, val2);
-        Pattern pat3 = new Pattern(allLights.subList(5, 8));
-        pat3.movement = Movement.LEFTtoRIGHT;
-        List<Scene> scenesRight = pat3.iteratePattern(val1, val2);
-
-        Chaser chaser = new Chaser(-1, ">||>", scenesLeft);
-        chaser.merge(scenesMiddle);
-        chaser.merge(scenesRight);
+        Chaser chaser = new Chaser(-1, "all", scenes);
 
         log.debug("PRE-IDs : Chaser: " + chaser);
-
-
         List<Function> allFunctionsForExport = new ArrayList();
         allFunctionsForExport.add(chaser);
         allFunctionsForExport.addAll(chaser.scenes);
 
-        /**
-         * Assign function IDs and add to export
-         */
-        List<QLCFunction> export = new ArrayList<>();
+        return assignIDs(allFunctionsForExport);
+    }
+
+    /**
+     * Accent DIM 2 -> ->
+     *
+     * @param allLights
+     * @return
+     */
+    public static List<QLCFunction> accentDim2(List allLights) {
+        FixtureValue val1 = new FixtureValue(0, 0, 0, 0);
+        val1.applyDim = true;
+        val1.applyRed = false;
+        val1.applyGreen = false;
+        val1.applyBlue = false;
+        FixtureValue val2 = new FixtureValue(255, 0, 0, 0);
+        val2.applyDim = true;
+        val2.applyRed = false;
+        val2.applyGreen = false;
+        val2.applyBlue = false;
+
+        Pattern pat1 = new Pattern(allLights.subList(0, 4));
+        pat1.movement = Movement.LEFTtoRIGHT;
+        List<Scene> scenesLeft = pat1.iteratePattern(val1, val2);
+        Pattern pat2 = new Pattern(allLights.subList(4, 8));
+        pat2.movement = Movement.LEFTtoRIGHT;
+        List<Scene> scenesRight = pat2.iteratePattern(val1, val2);
+
+        Chaser chaser = new Chaser(-1, "->->", scenesLeft);
+        chaser.merge(scenesRight);
+
+        log.debug("PRE-IDs : Chaser: " + chaser);
+        List<Function> allFunctionsForExport = new ArrayList();
+        allFunctionsForExport.add(chaser);
+        allFunctionsForExport.addAll(chaser.scenes);
+
+        log.debug("QLC Functions List: " + allFunctionsForExport);
+        return assignIDs(allFunctionsForExport);
+    }
+
+    /**
+     * Converts internal objects to QLCFunctions and assigns IDs
+     *
+     * @param allFunctionsForExport List of Function (scene or chaser)
+     * @return list of exportable functions for QLC+
+     */
+    public static List<QLCFunction> assignIDs(List<Function> allFunctionsForExport) {
+        ArrayList<QLCFunction> export = new ArrayList<>();
         for (Function function : allFunctionsForExport) {
             if (function instanceof Scene) {
                 ((Scene) function).setID(highestFunctionID + 1);
@@ -89,35 +138,42 @@ class App {
             function.addPathPrefix("JAVATest");
             highestFunctionID++;
         }
-        log.debug("POST-IDs : Chaser: " + chaser);
-
-
-        log.debug("QLC Functions List: " + export);
-
-        for (QLCFunction function : export) {
-            log.debug(function.toQXWString());
-        }
-        //TODO continue here to prepare IDs for export? #1
+        return export;
     }
 
-    public static void anotherCase(List allLights) {
-        FixtureValue val1 = new FixtureValue();
-        FixtureValue val2 = new FixtureValue(0, 255, 255, 255);
 
-        //Another example non in order
-        Pattern pat1 = new Pattern(allLights.subList(3, 5));
-        pat1.movement = Movement.ALL;
-        List<Scene> scenes_inner = pat1.iteratePattern(val1, val2);
+    /**
+     * Writes to file
+     *
+     * @param export
+     */
+    public static void exportToFile(List<QLCFunction> export) {
+        BufferedWriter bw = null;
+        FileWriter fw = null;
 
-        List<LEDLightDRGB> lights2 = new ArrayList();
-        lights2.addAll(allLights.subList(0, 3));
-        lights2.addAll(allLights.subList(5, 8));
-        Pattern pat2 = new Pattern(lights2);
-        pat2.movement = Movement.LEFTtoRIGHT;
-        List<Scene> scenes_outer = pat2.iteratePattern(val1, val2);
+        try {
+            fw = new FileWriter("export.qxw");
+            bw = new BufferedWriter(fw);
 
-        Chaser chaser = new Chaser(-1, ">||(>)", scenes_outer);
-        chaser.merge(scenes_inner);
-        log.debug("Chaser: " + chaser);
+            for (QLCFunction function : export) {
+                bw.write(function.toQXWString());
+                log.debug(function.toQXWString());
+
+            }
+
+            System.out.println("Done");
+
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        } finally {
+            try {
+                if (bw != null)
+                    bw.close();
+                if (fw != null)
+                    fw.close();
+            } catch (IOException ex) {
+                log.error(ex.getMessage());
+            }
+        }
     }
 }

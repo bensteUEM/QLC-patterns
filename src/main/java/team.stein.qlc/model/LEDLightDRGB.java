@@ -42,15 +42,19 @@ public class LEDLightDRGB {
      */
     private void applyValues(FixtureValue values) {
         if (values.applyDim) {
+            this.fixtureValue.applyDim = true;
             this.fixtureValue.dim = values.dim;
         }
         if (values.applyRed) {
+            this.fixtureValue.applyRed = true;
             this.fixtureValue.red = values.red;
         }
         if (values.applyGreen) {
+            this.fixtureValue.applyGreen = true;
             this.fixtureValue.green = values.green;
         }
         if (values.applyBlue) {
+            this.fixtureValue.applyBlue = true;
             this.fixtureValue.blue = values.blue;
         }
     }
