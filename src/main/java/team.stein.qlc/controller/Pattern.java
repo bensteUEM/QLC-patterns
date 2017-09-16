@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import team.stein.qlc.model.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static team.stein.qlc.model.Movement.LEFTtoRIGHT;
@@ -126,13 +127,76 @@ public class Pattern {
                 }
                 break;
             case RIGHTtoLEFT:
-                log.error(this.movement + " not yet implemented");
+                for (int i = this.lights.size(); i > 0; i--) {
+                    LEDLightDRGB step = this.lights.get(i - 1);
+                    name = "";
+                    lightsStep = new ArrayList<>();
+                    for (LEDLightDRGB light : this.lights) {
+                        if (step.equals(light)) {
+                            name += "X";
+                            lightsStep.add(new LEDLightDRGB(light, val2));
+                        } else {
+                            name += "-";
+                            lightsStep.add(new LEDLightDRGB(light, val1));
+                        }
+                    }
+                    result.add(new Scene(-1, name, lightsStep));
+                }
                 break;
             case RANDOM:
-                log.error(this.movement + " not yet implemented");
+                List<Integer> sequence = new ArrayList();
+                for (int i = 0; i < this.lights.size(); i++) {
+                    sequence.add(i);
+                }
+                Collections.shuffle(sequence);
+
+                for (int i = 0; i < this.lights.size(); i++) {
+                    name = "";
+                    lightsStep = new ArrayList<>();
+                    for (int pick : sequence) {
+                        if (this.lights.get(i).equals(this.lights.get(pick))) {
+                            name += "X";
+                            lightsStep.add(new LEDLightDRGB(this.lights.get(pick), val2));
+                        } else {
+                            name += "-";
+                            lightsStep.add(new LEDLightDRGB(this.lights.get(pick), val1));
+                        }
+                    }
+                    result.add(new Scene(-1, name, lightsStep));
+                }
                 break;
             case PINGPONG:
-                log.error(this.movement + " not yet implemented");
+                for (LEDLightDRGB step : this.lights) {
+                    name = "";
+                    lightsStep = new ArrayList<>();
+                    for (LEDLightDRGB light : this.lights) {
+                        if (step.equals(light)) {
+                            name += "X";
+                            lightsStep.add(new LEDLightDRGB(light, val2));
+                        } else {
+                            name += "-";
+                            lightsStep.add(new LEDLightDRGB(light, val1));
+                        }
+                    }
+                    result.add(new Scene(-1, name, lightsStep));
+                }
+                if (this.lights.size() > 2) {
+                    for (int i = this.lights.size() - 1; i > 1; i--) {
+                        name = "";
+                        lightsStep = new ArrayList<>();
+                        LEDLightDRGB step = this.lights.get(i - 1);
+                        for (LEDLightDRGB light : this.lights) {
+                            if (step.equals(light)) {
+                                name += "X";
+                                lightsStep.add(new LEDLightDRGB(light, val2));
+                            } else {
+                                name += "-";
+                                lightsStep.add(new LEDLightDRGB(light, val1));
+                            }
+                        }
+                        result.add(new Scene(-1, name, lightsStep));
+                    }
+                }
                 break;
         }
         return result;
