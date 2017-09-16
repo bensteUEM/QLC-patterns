@@ -28,7 +28,7 @@ public class Scene implements Function {
     public List<LEDLightDRGB> lights;
     private Integer fadeIn;
     private Integer fadeOut;
-    private Integer duration;
+    private Integer duration; //in ms
     private Integer id;
     private String name;
     private String path;
@@ -47,7 +47,7 @@ public class Scene implements Function {
         this.path = "";
         this.fadeIn = 0;
         this.fadeOut = 0;
-        this.duration = 0;
+        this.duration = 1000;
     }
 
     /**

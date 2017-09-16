@@ -35,7 +35,7 @@ public class Chaser implements Function {
     private Integer id = -1;
     private Integer fadeIn;
     private Integer fadeOut;
-    private Integer duration;
+    private Integer duration; //in ms
     private String name;
     private String path;
 
@@ -58,7 +58,7 @@ public class Chaser implements Function {
 
         this.fadeIn = 0;
         this.fadeOut = 0;
-        this.duration = 0;
+        this.duration = 1000;
     }
 
     /**
