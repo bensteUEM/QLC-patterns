@@ -1,5 +1,6 @@
 package team.stein.qlc.model;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
@@ -133,16 +134,16 @@ public class Scene implements Function {
 
     @Override
     public String getName() {
-        return this.name;
+        return StringEscapeUtils.escapeXml(this.name);
     }
 
     @Override
     public String getPath() {
-        return this.path;
+        return StringEscapeUtils.escapeXml(this.path);
     }
 
     @Override
     public void addPathPrefix(String s) {
-        this.path = (this.path.equals("")) ? s : s + this.path;
+        this.path = (this.path.equals("")) ? s : s + "/" + this.path;
     }
 }

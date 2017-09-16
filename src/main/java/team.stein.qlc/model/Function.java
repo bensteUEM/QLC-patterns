@@ -11,6 +11,11 @@ public interface Function {
 
     public Integer getDuration();
 
+    /**
+     * Watch Out for serialization issues ! e.g. < int  "&lt;"
+     *
+     * @return
+     */
     public String getName();
 
     public String getPath();

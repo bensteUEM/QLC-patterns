@@ -1,5 +1,6 @@
 package team.stein.qlc.model;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import team.stein.qlc.helper.Helper;
 
@@ -48,7 +49,6 @@ public class Chaser implements Function {
      */
     public Chaser(Integer id, String name, List<Scene> scenes) {
         this.id = id;
-        this.scenes = scenes;
 
         this.forwardDirection = true;
         this.runOrder = ChaserRunOrder.LOOP;
@@ -59,6 +59,12 @@ public class Chaser implements Function {
         this.fadeIn = 0;
         this.fadeOut = 0;
         this.duration = 1000;
+
+        this.scenes = scenes;
+
+        for (Scene scene : scenes) {
+            //scene.addPathPrefix(this.getName()); //TODO removed for debug
+        }
     }
 
     /**
@@ -91,6 +97,7 @@ public class Chaser implements Function {
 
         for (int i = 0; i < this.scenes.size(); i++) {
             this.scenes.get(i).merge(moreScenes.get(i));
+            moreScenes.get(i).addPathPrefix(this.getName());
         }
     }
 
@@ -132,12 +139,12 @@ public class Chaser implements Function {
 
     @Override
     public String getName() {
-        return this.name;
+        return StringEscapeUtils.escapeXml(this.name);
     }
 
     @Override
     public String getPath() {
-        return this.path;
+        return StringEscapeUtils.escapeXml(this.path);
     }
 
     @Override

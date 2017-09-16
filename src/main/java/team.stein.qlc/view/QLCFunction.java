@@ -13,15 +13,18 @@ public class QLCFunction {
     private static final Logger log = Logger.getLogger(QLCFunction.class);
     boolean isChaser;
     private Function internalFunction;
+    private String path;
 
     public QLCFunction(Scene scene) {
         this.isChaser = false;
         this.internalFunction = scene;
+        this.path = this.internalFunction.getPath();
     }
 
     public QLCFunction(Chaser chaser) {
         this.isChaser = true;
         this.internalFunction = chaser;
+        this.path = this.internalFunction.getPath();
     }
 
     @Override
@@ -37,7 +40,7 @@ public class QLCFunction {
         qxwText.append((isChaser ? "Chaser" : "Scene")).append("\"");
 
         qxwText.append(" Name=\"").append(this.internalFunction.getName()).append("\"")
-                .append(" Path=\"").append(this.internalFunction.getPath()).append("\"")
+                .append(" Path=\"").append(this.path).append("\"")
                 .append(">");
         qxwText.append("\n\t\t\t<Speed FadeIn=\"").append(this.internalFunction.getFadeIn()).append("\"")
                 .append(" FadeOut=\"").append(this.internalFunction.getFadeOut()).append("\"")
@@ -47,7 +50,7 @@ public class QLCFunction {
         if (this.internalFunction instanceof Chaser) {
             Chaser chaser = (Chaser) internalFunction;
             qxwText.append("\n\t\t\t<Direction>" + ((chaser.forwardDirection) ? "Forward" : "Backward") + "</Direction>");
-            qxwText.append("\n\t\t\t<ChaserRunOrder>");
+            qxwText.append("\n\t\t\t<RunOrder>");
 
             switch (chaser.runOrder) {
                 case LOOP:
@@ -63,7 +66,7 @@ public class QLCFunction {
                     qxwText.append("Random");
                     break;
             }
-            qxwText.append("</ChaserRunOrder>");
+            qxwText.append("</RunOrder>");
 
             qxwText.append("\n\t\t\t<SpeedModes FadeIn=\"Default\" FadeOut=\"Default\" Duration=\"Common\"/>");
 
@@ -113,5 +116,9 @@ public class QLCFunction {
         qxwText.append("\n\t\t</Function>");
 
         return qxwText.toString();
+    }
+
+    public void updatePathPrefix(String prefix) {
+        this.path = path.equals("") ? prefix : prefix + "/" + this.path;
     }
 }
