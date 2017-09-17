@@ -4,12 +4,15 @@
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.10.5</Version>
-  <Author>Benedict Stein</Author>
+  <Author>Shuttle</Author>
  </Creator>
  <Engine>
   <InputOutputMap>
    <Universe Name="Output Universe 1" ID="0">
-    <Input Plugin="Loopback" Line="0" Profile="15uhr godi neu Emulated 128 Faders, 128 Buttons, 8 Submasters - 15uhr"/>
+    <Input Plugin="Loopback" Line="0"/>
+    <Output Plugin="DMX USB" Line="0">
+     <PluginParameters UniverseChannels="209"/>
+    </Output>
    </Universe>
    <Universe Name="Loopback Layer 2" ID="1">
     <Output Plugin="Loopback" Line="0">
@@ -19,7 +22,8 @@
    <Universe Name="Zoom R16 Input only" ID="2"/>
    <Universe Name="not used" ID="3"/>
    <Universe Name="Behringer XTouch Compact" ID="4">
-    <Input Plugin="ArtNet" Line="1" Profile="Behringer (benste) X Touch Compact "/>
+    <Input Plugin="MIDI" Line="0"/>
+    <Feedback Plugin="MIDI" Line="1"/>
    </Universe>
   </InputOutputMap>
   <Fixture>
@@ -1378,6 +1382,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="113" Type="Script" Name="Lied 1 Teil2">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -1394,6 +1401,9 @@
    <Command>startfunction%3A110%20%2F%2F%20Saeule%20blau</Command>
    <Command></Command>
    <Command>wait%3A10h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -1464,6 +1474,9 @@
    <Command>startfunction%3A110%20%2F%2F%20Saeule%20blau</Command>
    <Command>startfunction%3A109%20%2F%2F%20Saeule%20orange</Command>
    <Command>wait%3A10h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -1578,6 +1591,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="139" Type="Script" Name="Decke Blau/Violett Wechseldimmer" Path="15 Uhr Godi/Decke ">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -1586,6 +1602,9 @@
    <Command>startfunction%3A128%20%2F%2F%20Decke%20Blau%2FViolett</Command>
    <Command>startfunction%3A154%20%2F%2F%20Decke%20Dimmerwechsel</Command>
    <Command>wait%3A10h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -1677,6 +1696,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="141" Type="Script" Name="Säule Blau Wechseldimmer Ping Pong 1+3+4+6" Path="15 Uhr Godi/Säule">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -1689,6 +1711,9 @@
    <Command>startfunction%3A211%20%2F%2F%20S%C3%A4ule%20B%C3%BChne%20An</Command>
    <Command>startfunction%3A215%20%2F%2F%20B%C3%BChne%20Blau</Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -1827,6 +1852,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="149" Type="Script" Name="Säule Blau Wechseldimmer Ping Pong 1+6,2+5,3+4" Path="15 Uhr Godi/Säule">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -1838,6 +1866,9 @@
    <Command>startfunction%3A211%20%2F%2F%20S%C3%A4ule%20B%C3%BChne%20An</Command>
    <Command>startfunction%3A215%20%2F%2F%20B%C3%BChne%20Blau</Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -1940,6 +1971,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="153" Type="Script" Name="Decke Blau/Orange Wechseldimmer" Path="15 Uhr Godi/Decke ">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -1949,6 +1983,9 @@
    <Command>startfunction%3A154%20%2F%2F%20Decke%20Dimmerwechsel</Command>
    <Command>startfunction%3A142%20%2F%2F%20Decke%20Dimmer%2050%25</Command>
    <Command>wait%3A10h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -2056,6 +2093,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="164" Type="Script" Name="Blau/Violett Wechselfarbe" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2106,6 +2146,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="165" Type="Script" Name="Säule Blau/Violett Wechselfarbe" Path="15 Uhr Godi/Säule">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2117,6 +2160,9 @@
    <Command>startfunction%3A215%20%2F%2F%20B%C3%BChne%20Blau</Command>
    <Command></Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -2278,6 +2324,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="174" Type="Scene" Name="Saeulen Gelb/Blau/Gelb" Path="15Uhr Godi/OLD - reuuse?/Farben">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2300,6 +2349,9 @@
    <Command></Command>
    <Command></Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -2383,6 +2435,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="178" Type="Script" Name="_Orange 50%" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2395,6 +2450,9 @@
    <Command>startfunction%3A142%20%2F%2F%20Decke%20Dimmer%2050%25</Command>
    <Command>%2F%2Fstartfunction%3A122%20%2F%2F%20Decke%20Dimmer%20AN</Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -2475,6 +2533,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="180" Type="Script" Name="_Gelb 50%" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2486,6 +2547,9 @@
    <Command>%2F%2Fstartfunction%3A122%20%2F%2F%20Decke%20Dimmer%20AN</Command>
    <Command></Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -2533,6 +2597,9 @@
    <Command>wait%3A1h01s</Command>
    <Command></Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -2657,6 +2724,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="188" Type="Script" Name="_Orange" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2704,6 +2774,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="189" Type="Script" Name="_Violett" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2715,6 +2788,9 @@
    <Command>startfunction%3A211%20%2F%2F%20S%C3%A4ule%20B%C3%BChne%20An</Command>
    <Command>startfunction%3A122%20%2F%2F%20Decke%20Dimmer%20AN</Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -2815,6 +2891,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="194" Type="Script" Name="Gelb/Orange Wechseldimmer" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2863,6 +2942,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="195" Type="Script" Name="Gelb/Orange Wechselfarbe" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2873,6 +2955,9 @@
    <Command>startfunction%3A197%20%2F%2F%20S%C3%A4ule%20Gelb%2FOrange%20Wechselfarbe</Command>
    <Command></Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -2960,6 +3045,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="197" Type="Script" Name="Säule Gelb/Orange Wechselfarbe" Path="15 Uhr Godi/Säule">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -2971,6 +3059,9 @@
    <Command>startfunction%3A212%20%2F%2F%20B%C3%BChne%20Orange</Command>
    <Command></Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -3081,6 +3172,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="201" Type="Script" Name="Säule Grün Wechseldimmer" Path="15 Uhr Godi/Säule">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -3093,6 +3187,9 @@
    <Command>startfunction%3A213%20%2F%2F%20B%C3%BChne%20Gr%C3%BCn</Command>
    <Command></Command>
    <Command>wait%3A1h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -3180,6 +3277,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="203" Type="Script" Name="Decke Orange/Gelb, Säule Blau/Violett" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -3189,6 +3289,9 @@
    <Command>startfunction%3A148%20%2F%2F%20S%C3%A4ule%20Blau%20Wechseldimmer%20Blau%2FViolett%2FBlau</Command>
    <Command></Command>
    <Command>wait%3A2h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -3308,6 +3411,9 @@
    <Command></Command>
    <Command></Command>
    <Command></Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
   </Function>
   <Function ID="209" Type="Script" Name="Decke gelb/orange Säule gelb/Violett" Path="15 Uhr Godi/_Sets">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -3317,6 +3423,9 @@
    <Command>startfunction%3A196%20%2F%2F%20Decke%20Gelb%2FOrange%20Wechselfarbe</Command>
    <Command></Command>
    <Command>wait%3A2h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -3397,6 +3506,9 @@
    <Command>startfunction%3A208%20%2F%2F%20S%C3%A4ule%20Gr%C3%BCn%2FGelb%20Farbwechsel</Command>
    <Command></Command>
    <Command>wait%3A2h01s</Command>
+   <Command></Command>
+   <Command></Command>
+   <Command></Command>
    <Command></Command>
    <Command></Command>
    <Command></Command>
@@ -3643,7 +3755,7 @@
    <FixtureVal ID="36">1,255,2,255,3,255</FixtureVal>
   </Function>
   <Function ID="240" Type="Chaser" Name="all" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -3661,7 +3773,7 @@
    <FixtureVal ID="36">0,255</FixtureVal>
   </Function>
   <Function ID="242" Type="Chaser" Name="-&gt;-&gt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -3715,7 +3827,7 @@
    <FixtureVal ID="36">0,255</FixtureVal>
   </Function>
   <Function ID="247" Type="Chaser" Name="&lt;-&lt;-" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -3769,7 +3881,7 @@
    <FixtureVal ID="36">0,0</FixtureVal>
   </Function>
   <Function ID="252" Type="Chaser" Name="-&gt;&lt;-" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -3823,7 +3935,7 @@
    <FixtureVal ID="36">0,0</FixtureVal>
   </Function>
   <Function ID="257" Type="Chaser" Name="&lt;--&gt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -3877,7 +3989,7 @@
    <FixtureVal ID="36">0,255</FixtureVal>
   </Function>
   <Function ID="262" Type="Chaser" Name="-&gt;||-&gt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -3913,7 +4025,7 @@
    <FixtureVal ID="36">0,255</FixtureVal>
   </Function>
   <Function ID="266" Type="Chaser" Name="&lt;-||&lt;-" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -3949,7 +4061,7 @@
    <FixtureVal ID="36">0,0</FixtureVal>
   </Function>
   <Function ID="270" Type="Chaser" Name="-&gt;||&lt;-" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -3985,7 +4097,7 @@
    <FixtureVal ID="36">0,0</FixtureVal>
   </Function>
   <Function ID="274" Type="Chaser" Name="&lt;-||-&gt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -4021,7 +4133,7 @@
    <FixtureVal ID="36">0,255</FixtureVal>
   </Function>
   <Function ID="278" Type="Chaser" Name="&lt;&gt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -4195,7 +4307,7 @@
    <FixtureVal ID="36">0,0</FixtureVal>
   </Function>
   <Function ID="293" Type="Chaser" Name="&lt;||&gt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -4301,7 +4413,7 @@
    <FixtureVal ID="36">0,0</FixtureVal>
   </Function>
   <Function ID="304" Type="Chaser" Name="&lt;&gt;||&lt;&gt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -4347,7 +4459,7 @@
    <FixtureVal ID="36">0,0</FixtureVal>
   </Function>
   <Function ID="309" Type="Chaser" Name="&gt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -4449,7 +4561,7 @@
    <FixtureVal ID="36">0,255</FixtureVal>
   </Function>
   <Function ID="318" Type="Chaser" Name="&lt;" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -4551,7 +4663,7 @@
    <FixtureVal ID="36">0,0</FixtureVal>
   </Function>
   <Function ID="327" Type="Chaser" Name="&gt; || (&gt;)" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -4617,7 +4729,7 @@
    <FixtureVal ID="36">0,255</FixtureVal>
   </Function>
   <Function ID="334" Type="Chaser" Name="&lt; || (&lt;)" Path="_AUTOGENERATED/AccentDIM">
-   <Speed FadeIn="0" FadeOut="0" Duration="1059"/>
+   <Speed FadeIn="0" FadeOut="0" Duration="1060"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
@@ -4686,45 +4798,45 @@
    <Font>Arial,12,-1,5,50,0,0,0,0,0</Font>
    <ChannelStyle>0</ChannelStyle>
    <ValueStyle>0</ValueStyle>
-   <Background>/home/benste/Documents/EFG (Link)/Bad Homburg/QLCplus/simpleEFG.png</Background>
+   <Background>C:/home/benste/Documents/EFG (Link)/Bad Homburg/QLCplus/simpleEFG.png</Background>
    <Grid Width="15" Height="15" Units="0"/>
-   <FxItem ID="0" XPos="7641.41" YPos="6348.48"/>
-   <FxItem ID="1" XPos="7631.31" YPos="6888.89"/>
-   <FxItem ID="2" XPos="1439.39" YPos="5050.51"/>
-   <FxItem ID="3" XPos="6909.09" YPos="323.232"/>
-   <FxItem ID="4" XPos="5065.66" YPos="1626.26"/>
-   <FxItem ID="5" XPos="6454.55" YPos="2095.96"/>
-   <FxItem ID="6" XPos="4045.45" YPos="4237.37"/>
-   <FxItem ID="7" XPos="2717.17" YPos="3444.44"/>
-   <FxItem ID="8" XPos="5267.68" YPos="3131.31"/>
-   <FxItem ID="9" XPos="6111.11" YPos="4025.25"/>
-   <FxItem ID="10" XPos="2151.51" YPos="6777.78"/>
-   <FxItem ID="11" XPos="2095.96" YPos="7979.8"/>
-   <FxItem ID="12" XPos="489.426" YPos="3432.77"/>
-   <FxItem ID="13" XPos="494.949" YPos="3845.81"/>
-   <FxItem ID="14" XPos="460.385" YPos="4209.6"/>
-   <FxItem ID="15" XPos="499.527" YPos="4619.32"/>
-   <FxItem ID="16" XPos="10318.2" YPos="9712.12"/>
-   <FxItem ID="17" XPos="11980.1" YPos="11545.4"/>
-   <FxItem ID="18" XPos="9500" YPos="1136.36"/>
-   <FxItem ID="19" XPos="5570.71" YPos="500"/>
-   <FxItem ID="20" XPos="3696.97" YPos="1565.66"/>
-   <FxItem ID="21" XPos="12262.6" YPos="4959.6"/>
-   <FxItem ID="22" XPos="480.745" YPos="8170.14"/>
-   <FxItem ID="23" XPos="465.12" YPos="8541.67"/>
-   <FxItem ID="24" XPos="3782.83" YPos="10131.3"/>
-   <FxItem ID="25" XPos="3232.32" YPos="2292.93"/>
    <FxItem ID="26" XPos="3681.82" YPos="2510.1"/>
    <FxItem ID="27" XPos="4247.47" YPos="2904.04"/>
-   <FxItem ID="28" XPos="4747.47" YPos="3287.88"/>
-   <FxItem ID="29" XPos="1166.67" YPos="8393.94"/>
-   <FxItem ID="30" XPos="1045.45" YPos="6712.12"/>
-   <FxItem ID="31" XPos="1106.06" YPos="5484.85"/>
-   <FxItem ID="32" XPos="2196.97" YPos="3954.55"/>
-   <FxItem ID="33" XPos="5484.85" YPos="1136.36"/>
+   <FxItem ID="24" XPos="3782.83" YPos="10131.3"/>
+   <FxItem ID="25" XPos="3232.32" YPos="2292.93"/>
+   <FxItem ID="22" XPos="480.745" YPos="8170.14"/>
+   <FxItem ID="23" XPos="465.12" YPos="8541.67"/>
+   <FxItem ID="20" XPos="3696.97" YPos="1565.66"/>
+   <FxItem ID="21" XPos="12262.6" YPos="4959.6"/>
+   <FxItem ID="18" XPos="9500" YPos="1136.36"/>
+   <FxItem ID="19" XPos="5570.71" YPos="500"/>
+   <FxItem ID="16" XPos="10318.2" YPos="9712.12"/>
+   <FxItem ID="17" XPos="11980.1" YPos="11545.4"/>
+   <FxItem ID="14" XPos="460.385" YPos="4209.6"/>
+   <FxItem ID="15" XPos="499.527" YPos="4619.32"/>
+   <FxItem ID="12" XPos="489.426" YPos="3432.77"/>
+   <FxItem ID="13" XPos="494.949" YPos="3845.81"/>
+   <FxItem ID="10" XPos="2151.51" YPos="6777.78"/>
+   <FxItem ID="11" XPos="2095.96" YPos="7979.8"/>
+   <FxItem ID="8" XPos="5267.68" YPos="3131.31"/>
+   <FxItem ID="9" XPos="6111.11" YPos="4025.25"/>
+   <FxItem ID="6" XPos="4045.45" YPos="4237.37"/>
+   <FxItem ID="7" XPos="2717.17" YPos="3444.44"/>
+   <FxItem ID="4" XPos="5065.66" YPos="1626.26"/>
+   <FxItem ID="5" XPos="6454.55" YPos="2095.96"/>
+   <FxItem ID="2" XPos="1439.39" YPos="5050.51"/>
+   <FxItem ID="3" XPos="6909.09" YPos="323.232"/>
+   <FxItem ID="0" XPos="7641.41" YPos="6348.48"/>
+   <FxItem ID="36" XPos="10803" YPos="272.727"/>
+   <FxItem ID="1" XPos="7631.31" YPos="6888.89"/>
    <FxItem ID="34" XPos="7424.24" YPos="272.727"/>
    <FxItem ID="35" XPos="9030.3" YPos="287.879"/>
-   <FxItem ID="36" XPos="10803" YPos="272.727"/>
+   <FxItem ID="32" XPos="2196.97" YPos="3954.55"/>
+   <FxItem ID="33" XPos="5484.85" YPos="1136.36"/>
+   <FxItem ID="30" XPos="1045.45" YPos="6712.12"/>
+   <FxItem ID="31" XPos="1106.06" YPos="5484.85"/>
+   <FxItem ID="28" XPos="4747.47" YPos="3287.88"/>
+   <FxItem ID="29" XPos="1166.67" YPos="8393.94"/>
   </Monitor>
  </Engine>
  <VirtualConsole>
@@ -5666,9 +5778,9 @@
      <FrameStyle>Sunken</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
      <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>/home/benste/Documents/EFG (Link)/Bad Homburg/OwnCloud/Transfer/15Uhr
+     <BackgroundImage>C:/home/benste/Documents/EFG (Link)/Bad Homburg/OwnCloud/Transfer/15Uhr
                         Godi/Mai/C:/Users/Shuttle/ownCloud/Transfer/15Uhr Godi/leadImage_r16.jpg
-                    </BackgroundImage>
+ </BackgroundImage>
      <Font>Default</Font>
     </Appearance>
     <WindowState Visible="True" X="1540" Y="195" Width="770" Height="480"/>
@@ -6582,7 +6694,7 @@
      <Apply>
       <Input Universe="0" Channel="162"/>
      </Apply>
-     <Time>1059</Time>
+     <Time>1060</Time>
      <Function FadeIn="0" FadeOut="0" Duration="6">240</Function>
      <Function FadeIn="0" FadeOut="0" Duration="6">327</Function>
      <Function FadeIn="0" FadeOut="0" Duration="6">309</Function>
@@ -6612,7 +6724,7 @@
      <Function ID="53"/>
      <Action>Flash</Action>
      <Intensity Adjust="False">100</Intensity>
-     <Input Universe="0" Channel="159"/>
+     <Input Universe="4" Channel="177"/>
     </Button>
     <Button Caption="/2 (Timers) schneller" ID="85" Icon="">
      <WindowState Visible="True" X="100" Y="45" Width="95" Height="95"/>
@@ -6626,7 +6738,7 @@
      <Function ID="54"/>
      <Action>Flash</Action>
      <Intensity Adjust="False">100</Intensity>
-     <Input Universe="0" Channel="160"/>
+     <Input Universe="4" Channel="178"/>
     </Button>
     <Button Caption="Timer default" ID="86" Icon="">
      <WindowState Visible="True" X="0" Y="150" Width="95" Height="95"/>
@@ -6640,7 +6752,7 @@
      <Function ID="55"/>
      <Action>Flash</Action>
      <Intensity Adjust="False">100</Intensity>
-     <Input Universe="0" Channel="161"/>
+     <Input Universe="4" Channel="179"/>
     </Button>
     <Button Caption="Play Pause &amp; Apply Function" ID="87" Icon="">
      <WindowState Visible="True" X="100" Y="250" Width="95" Height="95"/>
@@ -6668,7 +6780,7 @@
      <Function ID="57"/>
      <Action>Flash</Action>
      <Intensity Adjust="False">100</Intensity>
-     <Input Universe="0" Channel="163"/>
+     <Input Universe="4" Channel="180"/>
     </Button>
    </Frame>
    <Frame Caption="Scenes" ID="56">
